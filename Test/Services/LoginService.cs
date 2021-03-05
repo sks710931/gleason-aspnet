@@ -14,15 +14,37 @@ namespace Test.Services
         {
             users = new List<User>
             {
-                new User() { Email = "user@email.com", Password = "pass123$", Name = "Test User", Username = "test" }
-            };
+                new User() { Email = "user@email.com", Password = "pass123$", Name = "Test User", Username = "test", Id = 1},
+                new User() { Id = 2, Email = "user2@email.com", Password = "pass123$", Name = "Test User2", Username = "test2" },
+            new User() { Id = 3, Email = "user3@email.com", Password = "pass123$", Name = "Test User3", Username = "test3" }
+        };
 
+        }
+
+        public User AddUser(User user)
+        {
+            user.Id = users[users.Count - 1].Id + 1;
+            users.Add(user);
+            return user;
+        }
+
+        public bool DeleteUser(int id)
+        {
+            var userToremove = users.Find(x => x.Id == id);
+            try
+            {
+                users.Remove(userToremove);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public List<User> GetAllUsers()
         {
-            users.Add(new User() { Email = "user2@email.com", Password = "pass123$", Name = "Test User2", Username = "test2" });
-            users.Add(new User() { Email = "user3@email.com", Password = "pass123$", Name = "Test User3", Username = "test3" });
+            
             return users;
         }
 
@@ -45,6 +67,7 @@ namespace Test.Services
 
     public class User
     {
+        public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }

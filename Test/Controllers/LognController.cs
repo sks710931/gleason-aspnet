@@ -61,6 +61,33 @@ namespace Test.Controllers
             var users = _loginService.GetAllUsers();
             return users;
         }
+
+        [HttpPost]
+        [Route("add-user")]
+        public ActionResult<User> AddUser([FromBody] User userToAdd)
+        {
+            var addedUser = _loginService.AddUser(userToAdd);
+            if (addedUser != null)
+                return Ok(addedUser);
+            else
+            {
+                return StatusCode(500, null);
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public ActionResult<bool> DeleteUser(int id)
+        {
+            if (_loginService.DeleteUser(id))
+            {
+                return Ok(true);
+            }
+            else
+            {
+               return StatusCode(500, false);
+            }
+        }
     }
 
 

@@ -10,5 +10,7 @@ namespace Test.Services
     {
         User Login(LoginRequest requestUser);
         List<User> GetAllUsers();
+        User AddUser(User user);
+        bool DeleteUser(int id);
     }
 }
